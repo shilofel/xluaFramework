@@ -75,10 +75,36 @@ public class ResourceManager : MonoBehaviour
         StartCoroutine(LoadBundleAsync(assetName, action));
     }
 
+    //加载UI
+    public void LoadUI(string assetName, Action<UnityEngine.Object> action = null)
+    {
+        LoadAsset(PathUtil.GetUIPath(assetName), action);
+    }
+
+    public void LoadMusic(string assetName, Action<UnityEngine.Object> action = null)
+    {
+        LoadAsset(PathUtil.GetMusicPath(assetName), action);
+    }
+
+    public void LoadSound(string assetName, Action<UnityEngine.Object> action = null)
+    {
+        LoadAsset(PathUtil.GetSoundPath(assetName), action);
+    }
+
+    public void LoadEffect(string assetName, Action<UnityEngine.Object> action = null)
+    {
+        LoadAsset(PathUtil.GetEffectPath(assetName), action);
+    }
+
+    public void LoadScene(string assetName, Action<UnityEngine.Object> action = null)
+    {
+        LoadAsset(PathUtil.GetScenePath(assetName), action);
+    }
+
     private void Start()
     {
         ParseVersionFile();
-        LoadAsset("Assets/BuildResources/UI/Prefabs/TestUI.prefab", OnComplete);
+        LoadUI("Login/LoginUI", OnComplete);
     }
 
     private void OnComplete(UObject obj)
