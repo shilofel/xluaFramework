@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3693075002
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 14849deef79d268f3eb76d34a014f020
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f19fbf085e00d23fbc8d6cf7b345590b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/BuildResources/UI/Res/pic/radio_100.png
+Dependencies: []
