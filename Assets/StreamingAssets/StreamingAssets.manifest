@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 803297337
+CRC: 2341435629
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -12,80 +12,92 @@ AssetBundleManifest:
       Name: luascripts/main.bytes.ab
       Dependencies: {}
     Info_3:
-      Name: model/mat/palyer.mat.ab
+      Name: luascripts/entity/playerentity.bytes.ab
       Dependencies: {}
     Info_4:
-      Name: model/mat/test01.mat.ab
+      Name: luascripts/scene/scene01.bytes.ab
       Dependencies: {}
     Info_5:
-      Name: model/mat/test02.mat.ab
+      Name: luascripts/scene/scene02.bytes.ab
       Dependencies: {}
     Info_6:
+      Name: luascripts/ui/testui.bytes.ab
+      Dependencies: {}
+    Info_7:
+      Name: model/mat/palyer.mat.ab
+      Dependencies: {}
+    Info_8:
+      Name: model/mat/test01.mat.ab
+      Dependencies: {}
+    Info_9:
+      Name: model/mat/test02.mat.ab
+      Dependencies: {}
+    Info_10:
       Name: model/prefabs/player.prefab.ab
       Dependencies:
         Dependency_0: model/mat/palyer.mat.ab
-    Info_7:
+    Info_11:
       Name: scenes/main.unity.ab
       Dependencies: {}
-    Info_8:
+    Info_12:
       Name: scenes/samplescene.unity.ab
       Dependencies: {}
-    Info_9:
+    Info_13:
       Name: scenes/test01.unity.ab
       Dependencies:
         Dependency_0: model/mat/test01.mat.ab
-    Info_10:
+    Info_14:
       Name: scenes/test02.unity.ab
       Dependencies:
         Dependency_0: model/mat/test02.mat.ab
-    Info_11:
+    Info_15:
       Name: ui/prefabs/testui.prefab.ab
       Dependencies:
         Dependency_0: ui/res/background.png.ab
         Dependency_1: ui/res/button_150.png.ab
-    Info_12:
+    Info_16:
       Name: ui/prefabs/login/loginui.prefab.ab
       Dependencies:
         Dependency_0: ui/res/button_150.png.ab
-    Info_13:
+    Info_17:
       Name: ui/res/background.png.ab
       Dependencies: {}
-    Info_14:
+    Info_18:
       Name: ui/res/button_150.png.ab
       Dependencies: {}
-    Info_15:
+    Info_19:
       Name: ui/res/img_jindutiaodikuang.png.ab
       Dependencies: {}
-    Info_16:
+    Info_20:
       Name: ui/res/img_jindutiaoxuanzhong.png.ab
       Dependencies: {}
-    Info_17:
+    Info_21:
       Name: ui/res/radio_100.png.ab
       Dependencies: {}
-    Info_18:
+    Info_22:
       Name: ui/res/slider_handle.png.ab
       Dependencies: {}
-    Info_19:
+    Info_23:
       Name: ui/res/universal_panel_40.png.ab
       Dependencies: {}
-    Info_20:
+    Info_24:
       Name: ui/res/pic/background.png.ab
       Dependencies: {}
-    Info_21:
+    Info_25:
       Name: ui/res/pic/button_150.png.ab
       Dependencies: {}
-    Info_22:
+    Info_26:
       Name: ui/res/pic/radio_100.png.ab
       Dependencies: {}
-    Info_23:
+    Info_27:
       Name: ui/res/pic/slider_handle.png.ab
       Dependencies: {}
-    Info_24:
+    Info_28:
       Name: ui/res/pic/universal_panel_40.png.ab
       Dependencies: {}
-    Info_25:
+    Info_29:
       Name: ui/res/sound/dayu.mp3.ab
       Dependencies: {}
-    Info_26:
+    Info_30:
       Name: ui/res/sound/ui_touch.wav.ab
       Dependencies: {}
