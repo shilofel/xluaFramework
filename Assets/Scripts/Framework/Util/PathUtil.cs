@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class PathUtil
@@ -13,6 +14,9 @@ public class PathUtil
     //bundle 输出目录
     public static readonly string BundleOutPath = Application.streamingAssetsPath;
 
+    //只读目录
+    public static readonly string ReadPath = Application.streamingAssetsPath;
+
     //可读写目录
     public static readonly string ReadWritePath = Application.persistentDataPath;
 
@@ -23,8 +27,8 @@ public class PathUtil
         get
         {
             if (AppConst.GameMode == GameMode.UpdateMode)
-                return Application.persistentDataPath;
-            return Application.streamingAssetsPath;
+                return ReadWritePath;
+            return ReadPath;
         }
     }
     /// <summary>
@@ -49,6 +53,13 @@ public class PathUtil
         if (string.IsNullOrEmpty(path))
             return string.Empty;
         return path.Trim().Replace("\\", "/");
+    }
+
+    public static string Combine(string url1,string url2)
+    {
+        string url = Path.Combine(url1, url2);
+        url = GetStandardPath(url);
+        return url;
     }
 
     public static string GetLuaPath(string name)

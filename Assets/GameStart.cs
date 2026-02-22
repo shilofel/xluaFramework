@@ -9,6 +9,7 @@ public class GameStart : MonoBehaviour
     void Awake()
     {
         AppConst.GameMode = this.GameMode;
+        DontDestroyOnLoad(this);
     }
 
     // Update is called once per frame

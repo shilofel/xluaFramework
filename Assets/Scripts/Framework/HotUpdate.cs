@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 public class HotUpdate : MonoBehaviour
 {
+    private byte[] m_ReadPathFileListData;
+    private byte[] m_ServerFileListData;
+
     internal class DownFileInfo
     {
         public string url;
@@ -60,9 +62,122 @@ public class HotUpdate : MonoBehaviour
             string[] info = files[i].Split('|');
             DownFileInfo fileInfo = new DownFileInfo();
             fileInfo.fileName = info[1];
-            fileInfo.url = Path.Combine(path, info[1]);
+            fileInfo.url = PathUtil.Combine(path, info[1]);
             downFileInfos.Add(fileInfo);
         }
         return downFileInfos;
+    }
+
+    private bool IsFirstInstall()
+    {
+        //判断只读目录是否存在版本文件
+        bool isExistsReadPath = FileUtil.IsExists(PathUtil.Combine(PathUtil.ReadPath, AppConst.FileListName));
+
+        //判断可读写目录是否存在版本文件
+        bool isExistsReadWritePath = FileUtil.IsExists(PathUtil.Combine(PathUtil.ReadWritePath, AppConst.FileListName));
+
+        return isExistsReadPath && !isExistsReadWritePath;
+    }
+
+    private void ReleaseResources()
+    {
+        string url = PathUtil.Combine(PathUtil.ReadPath, AppConst.FileListName);
+        DownFileInfo info = new DownFileInfo();
+        info.url = url;
+        StartCoroutine(DownLoadFile(info, OnDownLoadReadPathFileListComplete));
+    }
+
+    private void OnDownLoadReadPathFileListComplete(DownFileInfo file)
+    {
+        m_ReadPathFileListData = file.fileData.data;
+        List<DownFileInfo> fileInfos = GetFileList(file.fileData.text, PathUtil.ReadPath);
+        StartCoroutine(DownLoadFile(fileInfos, OnReleaseFileComplete, OnReleaseAllFileComplete));
+        //loadingUI.InitProgress(fileInfos.Count, "正在释放资源，不消耗流量...");
+    }
+
+    private void OnReleaseAllFileComplete()
+    {
+        FileUtil.WriteFile(PathUtil.Combine(PathUtil.ReadWritePath, AppConst.FileListName), m_ReadPathFileListData);
+        CheckUpdate();
+    }
+
+    private void OnReleaseFileComplete(DownFileInfo fileInfo)
+    {
+        Debug.Log("OnReleaseFileComplete:" + fileInfo.url);
+        string writeFile = PathUtil.Combine(PathUtil.ReadWritePath, fileInfo.fileName);
+        FileUtil.WriteFile(writeFile, fileInfo.fileData.data);
+    }
+
+    private void CheckUpdate()
+    {
+        string url = PathUtil.Combine(AppConst.ResourcesUrl, AppConst.FileListName);
+        DownFileInfo info = new DownFileInfo();
+        info.url = url;
+        StartCoroutine(DownLoadFile(info, OnDownLoadServerFileListComplete));
+    }
+
+    private void OnDownLoadServerFileListComplete(DownFileInfo file)
+    {
+        m_ServerFileListData = file.fileData.data;
+        List<DownFileInfo> fileInfos = GetFileList(file.fileData.text, AppConst.ResourcesUrl);
+        List<DownFileInfo> downListFiles = new List<DownFileInfo>();
+
+        for (int i = 0; i < fileInfos.Count; i++)
+        {
+            string localFile = PathUtil.Combine(PathUtil.ReadWritePath, fileInfos[i].fileName);
+
+            //通过文件的md5来进行校验
+            if (!FileUtil.IsExists(localFile))
+            {
+                fileInfos[i].url = PathUtil.Combine(AppConst.ResourcesUrl, fileInfos[i].fileName);
+                downListFiles.Add(fileInfos[i]);
+            }
+        }
+        if (downListFiles.Count > 0)
+        {
+            StartCoroutine(DownLoadFile(fileInfos, OnUpdateFileComplete, OnUpdateAllFileComplete));
+            //loadingUI.InitProgress(downListFiles.Count, "正在更新...");
+        }
+        else
+            EnterGame();
+    }
+
+    private void OnUpdateAllFileComplete()
+    {
+        FileUtil.WriteFile(PathUtil.Combine(PathUtil.ReadWritePath, AppConst.FileListName), m_ServerFileListData);
+        EnterGame();
+    }
+
+    private void OnUpdateFileComplete(DownFileInfo file)
+    {
+        Debug.Log("OnUpdateFileComplete:" + file.url);
+        string writeFile = PathUtil.Combine(PathUtil.ReadWritePath, file.fileName);
+        FileUtil.WriteFile(writeFile, file.fileData.data);
+    }
+
+    private void EnterGame()
+    {
+        Manager.Resource.ParseVersionFile();
+        Manager.Resource.LoadUI("Login/LoginUI", OnComplete);
+    }
+
+    private void OnComplete(UnityEngine.Object obj)
+    {
+        GameObject go = Instantiate(obj) as GameObject;
+        go.transform.SetParent(this.transform);
+        go.SetActive(true);
+        go.transform.localPosition = Vector3.zero;
+    }
+
+    private void Start()
+    {
+        if(IsFirstInstall())
+        {
+            ReleaseResources();
+        }
+        else
+        {
+            CheckUpdate();
+        }
     }
 }

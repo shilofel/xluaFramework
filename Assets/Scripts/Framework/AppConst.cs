@@ -23,5 +23,5 @@ public class AppConst
     public static GameMode GameMode = GameMode.EditorMode;
     public static bool OpenLog = true;
     //热更资源的地址
-    public const string ResourcesUrl = "http://192.168.1.3/AssetBundles";
+    public const string ResourcesUrl = "http://127.0.0.1/AssetBundles";
 }
