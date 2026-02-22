@@ -79,6 +79,7 @@ public class LuaManager : MonoBehaviour
             byte[] file = File.ReadAllBytes(fileName);
             AddLuaScript(PathUtil.GetUnityPath(fileName), file);
         }
+        InitOK?.Invoke();
     }
 #endif
 

@@ -8,10 +8,9 @@ public class LuaBehaviour : MonoBehaviour
 {
     private LuaEnv m_LuaEnv = Manager.Lua.LuaEnv;
     protected LuaTable m_ScriptEnv;
-    private Action m_LuaAwake;
+    private Action m_LuaInit;
     private Action m_LuaUpdate;
     private Action m_LuaOnDestroy;
-    private Action m_LuaStart;
 
     private void Awake()
     {
@@ -23,18 +22,17 @@ public class LuaBehaviour : MonoBehaviour
         meta.Dispose();
 
         m_ScriptEnv.Set("self", this);
-        m_ScriptEnv.Get("Awake", out m_LuaAwake);
-        m_ScriptEnv.Get("Start", out m_LuaStart);
-        m_ScriptEnv.Get("Update", out m_LuaUpdate);
 
-        m_LuaAwake?.Invoke();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public virtual void Init(string luaName)
     {
-        m_LuaStart?.Invoke();
+        m_LuaEnv.DoString(Manager.Lua.GetLuaScript(luaName), luaName, m_ScriptEnv);
+        m_ScriptEnv.Get("Update", out m_LuaUpdate);
+        m_ScriptEnv.Get("OnInit", out m_LuaInit);
+        m_LuaInit?.Invoke();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -45,9 +43,8 @@ public class LuaBehaviour : MonoBehaviour
     protected virtual void Clear()
     {
         m_LuaOnDestroy = null;
-        m_LuaAwake = null;
-        m_LuaStart = null;
-
+        m_LuaInit = null;
+        m_LuaUpdate = null;
         m_ScriptEnv?.Dispose();
         m_ScriptEnv = null;
     }
