@@ -40,7 +40,10 @@ public class ResourceManager : MonoBehaviour
             }
             m_BundleInfos.Add(bundleInfo.AssetsName, bundleInfo);
 
+            if (info[0].IndexOf("LuaScripts") > 0)
+                Manager.Lua.LuaNames.Add(info[0]);
         }
+
     }
 
     /// <summary>
@@ -120,5 +123,10 @@ public class ResourceManager : MonoBehaviour
     public void LoadScene(string assetName, Action<UnityEngine.Object> action = null)
     {
         LoadAsset(PathUtil.GetScenePath(assetName), action);
+    }
+
+    public void LoadLua(string assetName, Action<UnityEngine.Object> action = null)
+    {
+        LoadAsset(assetName, action);
     }
 }

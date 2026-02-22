@@ -1,0 +1,91 @@
+ManifestFileVersion: 0
+CRC: 803297337
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: audio/music/dayu.mp3.ab
+      Dependencies: {}
+    Info_1:
+      Name: audio/sound/ui_touch.wav.ab
+      Dependencies: {}
+    Info_2:
+      Name: luascripts/main.bytes.ab
+      Dependencies: {}
+    Info_3:
+      Name: model/mat/palyer.mat.ab
+      Dependencies: {}
+    Info_4:
+      Name: model/mat/test01.mat.ab
+      Dependencies: {}
+    Info_5:
+      Name: model/mat/test02.mat.ab
+      Dependencies: {}
+    Info_6:
+      Name: model/prefabs/player.prefab.ab
+      Dependencies:
+        Dependency_0: model/mat/palyer.mat.ab
+    Info_7:
+      Name: scenes/main.unity.ab
+      Dependencies: {}
+    Info_8:
+      Name: scenes/samplescene.unity.ab
+      Dependencies: {}
+    Info_9:
+      Name: scenes/test01.unity.ab
+      Dependencies:
+        Dependency_0: model/mat/test01.mat.ab
+    Info_10:
+      Name: scenes/test02.unity.ab
+      Dependencies:
+        Dependency_0: model/mat/test02.mat.ab
+    Info_11:
+      Name: ui/prefabs/testui.prefab.ab
+      Dependencies:
+        Dependency_0: ui/res/background.png.ab
+        Dependency_1: ui/res/button_150.png.ab
+    Info_12:
+      Name: ui/prefabs/login/loginui.prefab.ab
+      Dependencies:
+        Dependency_0: ui/res/button_150.png.ab
+    Info_13:
+      Name: ui/res/background.png.ab
+      Dependencies: {}
+    Info_14:
+      Name: ui/res/button_150.png.ab
+      Dependencies: {}
+    Info_15:
+      Name: ui/res/img_jindutiaodikuang.png.ab
+      Dependencies: {}
+    Info_16:
+      Name: ui/res/img_jindutiaoxuanzhong.png.ab
+      Dependencies: {}
+    Info_17:
+      Name: ui/res/radio_100.png.ab
+      Dependencies: {}
+    Info_18:
+      Name: ui/res/slider_handle.png.ab
+      Dependencies: {}
+    Info_19:
+      Name: ui/res/universal_panel_40.png.ab
+      Dependencies: {}
+    Info_20:
+      Name: ui/res/pic/background.png.ab
+      Dependencies: {}
+    Info_21:
+      Name: ui/res/pic/button_150.png.ab
+      Dependencies: {}
+    Info_22:
+      Name: ui/res/pic/radio_100.png.ab
+      Dependencies: {}
+    Info_23:
+      Name: ui/res/pic/slider_handle.png.ab
+      Dependencies: {}
+    Info_24:
+      Name: ui/res/pic/universal_panel_40.png.ab
+      Dependencies: {}
+    Info_25:
+      Name: ui/res/sound/dayu.mp3.ab
+      Dependencies: {}
+    Info_26:
+      Name: ui/res/sound/ui_touch.wav.ab
+      Dependencies: {}

@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ee14367a104e84aa38ec09200082f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameMode: 2
+  GameMode: 0
 --- !u!1 &465177772
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,7 +480,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275847238}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dca63f923bdc9c74db201fc95478573e, type: 3}
   m_Name: 

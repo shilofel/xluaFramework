@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2459664773
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 110ef739b6b977a8c958cc2da166eb5f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/BuildResources/UI/Res/sound/ui_touch.wav
+Dependencies: []

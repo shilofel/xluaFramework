@@ -6,15 +6,21 @@ public class GameStart : MonoBehaviour
 {
     public GameMode GameMode;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         AppConst.GameMode = this.GameMode;
         DontDestroyOnLoad(this);
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Manager.Resource.ParseVersionFile();
+        Manager.Lua.Init(
+            ()=>
+            {
+                Manager.Lua.StartLua("main");
+            }
+            );
+//        Manager.Lua.StartLua("main");
+        //全局查找Main函数，效率低
+//        XLua.LuaFunction func = Manager.Lua.LuaEnv.Global.Get<XLua.LuaFunction>("Main");
+//       func.Call();
     }
 }
