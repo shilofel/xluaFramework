@@ -70,9 +70,30 @@ public class ResourceManager : MonoBehaviour
         action?.Invoke(bundleRequest?.asset);
     }
 
-    public void LoadAsset(string assetName,Action<UObject> action)
+#if UNITY_EDITOR
+    /// <summary>
+    /// 编辑器环境加载资源
+    /// </summary>
+    /// <param name="assetName"></param>
+    /// <param name="action"></param>
+    void EditorLoadAsset(string assetName, Action<UObject> action = null)
     {
-        StartCoroutine(LoadBundleAsync(assetName, action));
+        Debug.Log("this is EditorLoadAsset");
+        UObject obj = UnityEditor.AssetDatabase.LoadAssetAtPath(assetName, typeof(UObject));
+        if (obj == null)
+            Debug.LogError("assets name is not exist:" + assetName);
+        action?.Invoke(obj);
+    }
+#endif
+
+    private void LoadAsset(string assetName, Action<UObject> action)
+    {
+#if UNITY_EDITOR
+        if (AppConst.GameMode == GameMode.EditorMode)
+            EditorLoadAsset(assetName, action);
+        else
+#endif
+            StartCoroutine(LoadBundleAsync(assetName, action));
     }
 
     //加载UI
