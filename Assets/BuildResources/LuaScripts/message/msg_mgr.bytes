@@ -12,6 +12,7 @@ local msg_name_list =
 
 function msg_mgr.init()
 	for k,v in pairs(msg_name_list) do
+		Log.Info("1111111");
 		msg_model_list[v] = require("message."..v).new();
 	end
 end

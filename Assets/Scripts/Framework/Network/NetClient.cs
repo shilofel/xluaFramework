@@ -65,12 +65,15 @@ public class NetClient
         {
             if (m_Client == null || m_TcpStream == null)
                 return;
-            if (m_Buffer.Length < 1)
+            //收到的消息长度
+            int length = m_TcpStream.EndRead(asyncResult);
+
+            if (length < 1)
             {
                 OnDisConnected();
                 return;
             }
-            ReceiveData(m_Buffer.Length);
+            ReceiveData(length);
             lock (m_TcpStream)
             {
                 Array.Clear(m_Buffer, 0, m_Buffer.Length);
