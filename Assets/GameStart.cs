@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,20 +10,27 @@ public class GameStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Manager.Event.Subscribe(10000, OnLuaInit);
+        Manager.Event.Subscribe((int)GameEvent.StartLua, StartLua);
+        Manager.Event.Subscribe((int)GameEvent.GameInit, GameInit);
         AppConst.GameMode = this.GameMode;
         AppConst.OpenLog = this.OpenLog;
         DontDestroyOnLoad(this);
 
-        Manager.Resource.ParseVersionFile();
-        Manager.Lua.Init();
-//        Manager.Lua.StartLua("main");
-        //全局查找Main函数，效率低
-//        XLua.LuaFunction func = Manager.Lua.LuaEnv.Global.Get<XLua.LuaFunction>("Main");
-//       func.Call();
+        if (AppConst.GameMode == GameMode.UpdateMode)
+            this.gameObject.AddComponent<HotUpdate>();
+        else
+            Manager.Event.Fire((int)GameEvent.GameInit);
     }
 
-    void OnLuaInit(object args)
+    private void GameInit(object args)
+    {
+        if (AppConst.GameMode != GameMode.EditorMode)
+            Manager.Resource.ParseVersionFile();
+        Manager.Lua.Init();
+    }
+
+
+    void StartLua(object args)
     {
         Manager.Lua.StartLua("main");
         XLua.LuaFunction func = Manager.Lua.LuaEnv.Global.Get<XLua.LuaFunction>("Main");
@@ -36,6 +44,7 @@ public class GameStart : MonoBehaviour
 
     public void OnApplicationQuit()
     {
-        Manager.Event.UnSubscribe(10000, OnLuaInit);
+        Manager.Event.UnSubscribe((int)GameEvent.StartLua, StartLua);
+        Manager.Event.UnSubscribe((int)GameEvent.GameInit, GameInit);
     }
 }
